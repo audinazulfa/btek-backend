@@ -52,8 +52,8 @@ exports.readUserById = async(req, res)=> {
 //update
 exports.updateUserById = async(req, res)=> {
   try{
-    const update = await userModel.updateUserById(req.params.id, req.params.body);
-    const user = update.rows[0];
+    const update = await userModel.updateUserById(req.params.id, req.body);  
+    const user = update.rows[0]; 
     return res.json({
       success: true,
       message: "Update user successfully",
@@ -74,7 +74,7 @@ exports.deleteUserById = async(req, res)=> {
     return res.json({
       success: true,
       message: "Delete user successfully",
-      results: user
+      results: user.rows[0]
     });
   }catch(err){
     return res.status(500).json({

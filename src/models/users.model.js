@@ -28,7 +28,7 @@ exports.updateUserById = (id, data) => {
 
 //delete user berdasarkan id
 exports.deleteUserById = (id) => {
-  const sql = `DELETE FROM ${table} WHERE id = $1 RETURNING *`;
+  const sql = `DELETE FROM ${table} WHERE id = $1`;
   const params = [id];
   return db.query(sql, params);
 };
