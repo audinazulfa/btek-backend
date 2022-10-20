@@ -1,6 +1,8 @@
 const userModel = require("../models/users.model");
+const argon = require("argon2");
 
 exports.createUser = async(req, res)=> {
+  req.body.password = await argon.hash(req.body.password);
   try{
     const insert = await userModel.insertUser(req.body);
     const user = insert.rows[0];
@@ -22,6 +24,7 @@ exports.readAllUsers = async(req, res)=> {
   try{
     const users = await userModel.selectAllUsers(req.query);
     const {rowCount} = await userModel.selectAll(req.query);
+   
     const pageInfo = {
       page: req.query.page,
       limit: req.query.limit
@@ -64,6 +67,7 @@ exports.readUserById = async(req, res)=> {
 //update
 exports.updateUserById = async(req, res)=> {
   try{
+    req.body.password = await argon.hash(req.body.password);
     const user = await userModel.updateUserById(req.params.id, req.body);  
     return res.json({
       success: true,

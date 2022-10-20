@@ -2,10 +2,11 @@ const {body, param, query, validationResult} = require("express-validator");
 
 exports.basicUserCreds = [
   body("email").isEmail().withMessage("Email is invalid"),
-  body("password").isLength({min: 8}).withMessage("Password length must be 8 char or more")
-    .isStrongPassword({minUppercase: 1}).withMessage("Password must contain 1 or more uppercase")
-    .isStrongPassword({minLowercase: 1}).withMessage("Password must contain 1 or more lowercase")
-    .isStrongPassword({minSymbols: 1}).withMessage("Password must contain 1 or more symbol")
+  body("password").isStrongPassword({minLength: 8, minNumbers: 1, minSymbols: 1, minUppercase: 1, minLowercase: 1}).withMessage("Password length min 8 char with 1 number, 1 ssymbol, 1 uppercase, 1 lowercase")
+];
+
+exports.validEmail = [
+  body("email").isEmail().withMessage("Email is invalid")
 ];
 
 exports.paramsUUID = [
