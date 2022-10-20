@@ -9,6 +9,16 @@ exports.validEmail = [
   body("email").isEmail().withMessage("Email is invalid")
 ];
 
+exports.passwordConfirmation = [
+  body("newPassword").isLength({min: 4}).withMessage("Password length min 4 char or more"),
+  body("confirmPassword").custom((value, {req})=> {
+    if(value !== req.body.newPassword){
+      throw new Error("Password confirmation doesn't match pass");
+    }
+    return true;
+  })
+];
+
 exports.paramsUUID = [
   param("id").isUUID(4).withMessage("Invalid ID")
 ];

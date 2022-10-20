@@ -56,3 +56,40 @@ exports.register = async (req, res)=> {
     });
   }
 };
+
+exports.forgotPassword = async(req, res)=> {
+  try{
+    const insert = await userModel.insertEmail(req.body);
+    const email = insert.rows[0];
+    return res.json({
+      success: true, 
+      message: "E-mail sent",
+      result: email
+    });
+  }catch(err){
+    return res.status(500).json({
+      success: false,
+      message: "Error: "+err.message
+    });
+  }
+};
+
+exports.resetPassword = async(req, res)=> {
+  try{
+    req.body.newPassword = await argon.hash(req.body.newPassword);
+    req.body.confirmPassword = await argon.hash(req.body.confirmPassword);
+    const insert = await userModel.insertPassword(req.body);
+    const resetPassword = insert.rows[0];
+    return res.json({
+      success: true,
+      message: "Password changed successfully",
+      results: resetPassword
+    });
+  }catch(err){
+    return res.status(500).json({
+      success: false,
+      message: "Error: "+err.message
+    });
+  }
+};
+
