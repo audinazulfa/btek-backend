@@ -1,7 +1,6 @@
 const db = require("../helpers/db");
 
 const table = "users";
-const tableForgot = "forgotPassword";
 
 exports.insertUser = (data) => {
   const sql =`INSERT INTO ${table} ("email", "password") VALUES ($1, $2) RETURNING *`;
