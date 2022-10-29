@@ -32,14 +32,14 @@ exports.selectUserByEmail =  (email) => {
 };
 
 //update user berdasarkan id
-exports.updateUserById = (id, data) => {
+exports.editUser = (id, data) => {
   const sql = `UPDATE ${table} SET email = $2, password = $3 WHERE id = $1 RETURNING *`;
   const params = [id, data.email, data.password];
   return db.query(sql, params);
 };
 
 //delete user berdasarkan id
-exports.deleteUserById = (id) => {
+exports.deleteUser = (id) => {
   const sql = `DELETE FROM ${table} WHERE id = $1 RETURNING *`;
   const params = [id];
   return db.query(sql, params);

@@ -3,7 +3,7 @@ const table = "profile";
 
 exports.insertProfile = (data)=> {
   const sql = `INSERT INTO "${table}" ("fullName", "picture", "birthDate", "userId") VALUES ($1, $3, $2, $4) RETURNING *`;
-  const params = [data.fullName, data.birthDate, data.picture, data.userId];
+  const params = [data.fullName,  data.picture, data.birthDate, data.userId];
   return db.query(sql, params);
 };
 
@@ -13,9 +13,9 @@ exports.selectProfileByUserId = (id)=> {
   return db.query(sql, params);
 };
 
-exports.updateProfileByUserId = (id, data)=> {
+exports.updateProfileById = (id, data)=> {
   const column = Object.keys(data);
-  const val = Object.values(data);
+  const value = Object.values(data);
 
   const conditionalSql = [];
   column.forEach((col, i)=>{
@@ -23,6 +23,6 @@ exports.updateProfileByUserId = (id, data)=> {
   });
 
   const sql = `UPDATE "${table}" SET ${conditionalSql.join(", ")} WHERE "userId"=$1 RETURNING *`;
-  const params = [id, ...val];
+  const params = [id, ...value];
   return db.query(sql, params);
 };

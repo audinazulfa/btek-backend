@@ -25,22 +25,27 @@ exports.readProfileById = async(req, res)=> {
 
 exports.updateProfile = async(req, res)=> {
   try{
-    if(req.file) {
-      req.body.picture = req.file.fileName;
+    //setelah menit 16
+    if(req.file){
+      // console.log(req.file);
+      req.body.picture = req.file.filename;
     }
-    const profile = await profileModel.updateProfileByUserId(req.userData.id, req.body);
+    // console.log(req.file);
+    //setelah menit 16
+    const profile = await profileModel.updateProfileById(req.userData.id, req.body);
     if(profile.rowCount){
       return res.json({
         success: true,
         message: "Update profile user",
         results: profile.rows[0]
       });
-    } else{
-      res.status(401).json({
-        success: false,
-        message: "Update Failed"
-      });
-    }
+    } 
+    // else{
+    //   res.status(401).json({
+    //     success: false,
+    //     message: "Update Failed"
+    //   });
+    // }
   }catch(err){
     return res.status(500).json({
       success: false,

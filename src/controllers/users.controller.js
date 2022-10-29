@@ -65,7 +65,7 @@ exports.readUserById = async(req, res)=> {
 };
 
 //update
-exports.updateUserById = async(req, res)=> {
+exports.editUser = async(req, res)=> {
   try{
     req.body.password = await argon.hash(req.body.password);
     const user = await userModel.updateUserById(req.params.id, req.body);  
@@ -83,7 +83,7 @@ exports.updateUserById = async(req, res)=> {
 };
 
 //delete
-exports.deleteUserById = async(req, res)=> {
+exports.deleteUser = async(req, res)=> {
   try{
     const user = await userModel.deleteUserById(req.params.id);
     return res.json({
