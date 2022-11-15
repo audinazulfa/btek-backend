@@ -13,7 +13,7 @@ exports.login = async(req, res)=> {
       if(valid){ 
         const {id} = selectedUser;
         const payload = {id};
-        const token = jwt.sign({payload}, process.env.APP_SECRET || "default-key");
+        const token = jwt.sign(payload, process.env.APP_SECRET || "default-key");
         return res.json({
           success: true, 
           message: "Login success",
