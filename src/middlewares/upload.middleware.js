@@ -1,5 +1,6 @@
 const multer = require("multer");
 const path = require("path");
+const storageCloudinary  = require("./cloudinary.middleware");
 
 const extGenerator = (mimetype) => {
   const mime = ["image/jpeg", "image/png", "image/webp"];
@@ -12,9 +13,7 @@ const storage = multer.diskStorage({
     cb(null, path.join("assets", "uploads"));
   },
   filename: async(req, file, cb) => {
-    // console.log(file);
     const ext = extGenerator(file.mimetype);
-
     const { customAlphabet } = await import("nanoid");
     const nanoid = customAlphabet("0123456789", 10);
     
@@ -33,6 +32,7 @@ const fileFilter = (req, file, cb) => {
 
 const mult = multer({
   storage,
+  storageCloudinary,
   fileFilter,
   limits: {
     fileSize: 1 * 1000 * 1000

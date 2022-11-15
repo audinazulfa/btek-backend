@@ -8,7 +8,7 @@ exports.readProfileById = async(req, res)=> {
       return res.json({
         success: true, 
         message: "Profile user with id"+req.params.id,
-        results: profile.rows[0]
+        result: profile.rows[0]
       });
     }
     return res.status(400).json({
@@ -28,7 +28,7 @@ exports.updateProfile = async(req, res)=> {
     delete req.body.picture;
     if(req.file){
       // console.log(req.file);
-      req.body.picture = req.file.filename;
+      req.body.picture = req.file.path;
     }
 
     console.log(req.body);

@@ -46,7 +46,8 @@ exports.register = async (req, res)=> {
       if(profile.rowCount){
         return res.json({
           success: true, 
-          message: "Register successfully"
+          message: "Register successfully",
+          result: createdUser
         });
       }
     }
@@ -77,6 +78,7 @@ exports.forgotPassword = async(req, res)=> {
         return res.json({
           success: true, 
           message: "Forgot password request has been sent!",
+          results: forgot.rows[0]
         });
       }
     }else{
